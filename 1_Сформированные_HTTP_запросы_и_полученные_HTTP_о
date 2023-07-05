@@ -1,0 +1,133 @@
+1. Сформированные HTTP-запросы и полученные HTTP-ответы (URL: http://httpbin.org/anything):
+
+GET запрос без параметров:
+
+ncat -C httpbin.org 80
+GET /anything HTTP/1.1
+Host: httpbin.org
+
+HTTP/1.1 200 OK
+Date: Wed, 05 Jul 2023 21:23:06 GMT
+Content-Type: application/json
+Content-Length: 284
+Connection: keep-alive
+Server: gunicorn/19.9.0
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: true
+
+{
+  "args": {}, 
+  "data": "", 
+  "files": {}, 
+  "form": {}, 
+  "headers": {
+    "Host": "httpbin.org", 
+    "X-Amzn-Trace-Id": "Root=1-64a5df3a-35515b3f0b4ab4d14d458635"
+  }, 
+  "json": null, 
+  "method": "GET", 
+  "origin": "80.88.52.45", 
+  "url": "http://httpbin.org/anything"
+}
+
+GET запрос с любыми параметрами строки URL
+
+ncat -C httpbin.org 80
+GET /anything?name=Dmitriy&age=37 HTTP/1.1
+Host: httpbin.org
+
+HTTP/1.1 200 OK
+Date: Wed, 05 Jul 2023 21:26:10 GMT
+Content-Type: application/json
+Content-Length: 347
+Connection: keep-alive
+Server: gunicorn/19.9.0
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: true
+
+{
+  "args": {
+    "age": "37", 
+    "name": "Dmitriy"
+  }, 
+  "data": "", 
+  "files": {}, 
+  "form": {}, 
+  "headers": {
+    "Host": "httpbin.org", 
+    "X-Amzn-Trace-Id": "Root=1-64a5dff2-220d77070dfb7c8925c9cdcf"
+  }, 
+  "json": null, 
+  "method": "GET", 
+  "origin": "80.88.52.45", 
+  "url": "http://httpbin.org/anything?name=Dmitriy&age=37"
+}
+
+
+POST запрос с  любыми параметрами
+
+ncat -C httpbin.org 80
+POST /anything HTTP/1.1
+Host: httpbin.org
+Content-Length: 5
+
+
+HTTP/1.1 200 OK
+Date: Wed, 05 Jul 2023 21:29:49 GMT
+Content-Type: application/json
+Content-Length: 323
+Connection: keep-alive
+Server: gunicorn/19.9.0
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: true
+
+{
+  "args": {}, 
+  "data": "\r\n\r\n\r", 
+  "files": {}, 
+  "form": {}, 
+  "headers": {
+    "Content-Length": "5", 
+    "Host": "httpbin.org", 
+    "X-Amzn-Trace-Id": "Root=1-64a5e0c2-22caed3f076f8cc528ca7505"
+  }, 
+  "json": null, 
+  "method": "POST", 
+  "origin": "80.88.52.45", 
+  "url": "http://httpbin.org/anything"
+}
+
+
+
+
+
+
+
+2. HTTP-методы для создания/получения/обновления/удаления ресурса:
+
+  POST -> создание ресурса;
+  GET/HEAD -> получить ресурс с сервера с телом ответа / ~ без тела ответа
+  PUT/PATCH -> обновить данные ресурса целиком / ~ только фрагменты данных
+  DELETE -> удалить ресурс
+  OPTIONS -> получить информацию о доступных действиях с ресурсом
+  CONNECT -> устанавливает "туннель" к серверу, определённому по ресурсу
+    (преобразование HTTP соединения в прозрачный TCP/IP туннель)
+  TRACE -> выполняет вызов возвращаемого тестового сообщения с ресурса
+    (применяется для диагностики и позволяет видеть клиенту,что происходит
+      в каждом звене цепочки между клиентом и конечным получателем)
+
+
+3. Объясните в ответе на задание, что делают данные заголовки:
+
+  Accept -> Список допустимых форматов ресурса (запрос)
+  Connection -> Сведения о проведении соединения (запрос и ответ)
+  Content-Type -> Формат и способ представления сущности (запрос и ответ)
+  User-Agent -> Список названий и версий клиента и его компонентов с комментариями (запрос)
+  Content-Length -> Размер содержимого сущности в байтах (запрос и ответ)
+  Cache-Control -> Основные директивы для управления кэшированием (запрос и ответ)
+
+
+
+
+
+
